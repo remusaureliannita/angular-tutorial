@@ -7,14 +7,4 @@ import { timeout } from 'q';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  buttonDisable = true;
-
-  /**
-   *
-   */
-  constructor() {
-    setTimeout(() => {
-      this.buttonDisable = false;
-    }, 2000);
-  }
 }
