@@ -13,7 +13,31 @@ export class ShoppingListService {
     }
 
     addIngredient(ingredient: Ingredient) {
-        this.ingredients.push(ingredient);
+        if (this.checkIfExist(ingredient)) {
+            this.ingredients
+                .find(ing => ing.name === ingredient.name)
+                .amount += ingredient.amount;
+        } else {
+            this.ingredients.push(ingredient);
+        }
         this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+
+    addIngredients(ingredients: Ingredient[]) {
+        for (const ingredient of ingredients) {
+            if (this.checkIfExist(ingredient)) {
+                this.ingredients
+                    .find(ing => ing.name === ingredient.name)
+                    .amount += ingredient.amount;
+            } else {
+                this.ingredients.push(ingredient);
+            }
+        }
+
+        this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+
+    checkIfExist(ingredient: Ingredient): boolean {
+        return this.ingredients.filter(ing => ing.name === ingredient.name).length > 0;
     }
 }
